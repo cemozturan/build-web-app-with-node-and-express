@@ -19,5 +19,12 @@
   "homepage": "https://github.com/cemozturan/build-web-app-with-node-and-express#readme",
   "dependencies": {
     "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-jscs": "^4.0.0",
+    "gulp-jshint": "^2.0.1",
+    "jshint": "^2.9.3",
+    "jshint-stylish": "^2.2.1"
   }
 }
