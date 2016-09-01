@@ -1,0 +1,20 @@
+{
+  "name": "build-web-app-with-node-and-express",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "Cem Ozturan"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/cemozturan/build-web-app-with-node-and-express",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
