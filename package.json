@@ -1,0 +1,22 @@
+{
+  "name": "build-web-app-with-node-and-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cemozturan/build-web-app-with-node-and-express.git"
+  },
+  "author": "Cem Ozturan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cemozturan/build-web-app-with-node-and-express/issues"
+  },
+  "homepage": "https://github.com/cemozturan/build-web-app-with-node-and-express#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
