@@ -28,7 +28,16 @@ gulp.task('style', function() {
 // Using wiredep to make Gulp inject our CSS and JS files into html, so we don't have to add a new script tag
 // every time we add a new file.
 gulp.task('inject', function() {
-  var wiredep = require('wiredep').stream;
+  var wiredep = require('wiredep').stream; // Used to inject bower packages' css and js
+  var inject = require('gulp-inject'); // used to inject our own dependencies, css files and JS files
+
+  var injectSrc = gulp.src([
+    './public/css/*.css',
+    './public/js/*.js'], {read: false}); // We just the need the file names, not the contents. So we set read to false, which basically doesn't read the contents.
+
+  var injectOptions = {
+    ignorePath: '/public'
+  };
 
   // wiredep firstly looks at the bower.json file to check the dependencies so we tell it where the bower.json is.
   // Things inside bower.json, like bootstrap, has their own bower.json files. And wiredep will check the "main" property in those files
@@ -42,5 +51,6 @@ gulp.task('inject', function() {
 
   return gulp.src('./src/views/*.html')
       .pipe(wiredep(options))
+      .pipe(inject(injectSrc, injectOptions))
       .pipe(gulp.dest('./src/views')); // pipe them back into the views directory, every single html file found by gulp.src gets put back with wiredep changes
 });
