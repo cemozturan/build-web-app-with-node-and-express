@@ -6,6 +6,9 @@ var jshint = require('gulp-jshint');
 
 var jscs = require('gulp-jscs');
 
+// Required to auto-restart our server when there are file changes.
+var nodemon = require('gulp-nodemon');
+
 // In order to have gulp do something, we need to create a task.
 
 // We want to get all our JS files, but not the ones under node_modules and all.
@@ -53,4 +56,23 @@ gulp.task('inject', function() {
       .pipe(wiredep(options))
       .pipe(inject(injectSrc, injectOptions))
       .pipe(gulp.dest('./src/views')); // pipe them back into the views directory, every single html file found by gulp.src gets put back with wiredep changes
+});
+
+// So, when we run "gulp serve", it'll first run "style" and "inject", and then execute its own function.
+// "style" and "inject" will run at the same time, asyncly, so make sure nothing requires the other one.
+// If they do require, then we should make them dependent up in that task.
+gulp.task('serve', ['style', 'inject'], function() {
+  var options = {
+    script: 'app.js',
+    delayTime: 1, // it'll wait for 1 second before it runs that restart
+    env: {
+      'PORT': 5000 // connection strings and all would also go here
+    },
+    watch: jsFiles // files to watch for changes
+  };
+
+  return nodemon(options)
+    .on('restart', function(ev) { // when the nodemon restarts (which happens on a watched file change), calls this function
+      console.log('Restarting...');
+    });
 });
