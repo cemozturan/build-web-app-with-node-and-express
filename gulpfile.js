@@ -31,6 +31,9 @@ gulp.task('inject', function() {
   var wiredep = require('wiredep').stream;
 
   // wiredep firstly looks at the bower.json file to check the dependencies so we tell it where the bower.json is.
+  // Things inside bower.json, like bootstrap, has their own bower.json files. And wiredep will check the "main" property in those files
+  // to see where it should be looking at for files. Notice that .css files are not listed in bootstrap's bower.json's "main". So,
+  // we added an "override" in our own bower.json, which wiredep will use and find the files. The same is done for font-awesome as well.
   var options = {
     bowerJson: require('./bower.json'),
     directory: './public/lib', // directory where wiredep will be looking for stuff. E.g., when it sees bootstrap in bower.json, it needs to know where to find it.
