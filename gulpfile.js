@@ -37,6 +37,7 @@ gulp.task('inject', function() {
   var options = {
     bowerJson: require('./bower.json'),
     directory: './public/lib', // directory where wiredep will be looking for stuff. E.g., when it sees bootstrap in bower.json, it needs to know where to find it.
+    ignorePath: '../../public' // we use this so that in our html,instead of ../../public/lib/file, we get /lib/file
   };
 
   return gulp.src('./src/views/*.html')
