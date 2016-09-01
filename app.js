@@ -5,7 +5,7 @@ var express = require('express');
 var app = express();
 
 // The port that Express listens on our machine. let's just pick 5000.
-var port = 5000;
+var port = process.env.PORT || 5000;
 
 // app.use() sets up some middleware. Whatever we do is app.use() is executed by Express first before it does anything else.
 // The reason we are doing is to be able to serve public files from a static directory.

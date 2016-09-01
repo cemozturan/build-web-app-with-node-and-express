@@ -66,7 +66,7 @@ gulp.task('serve', ['style', 'inject'], function() {
     script: 'app.js',
     delayTime: 1, // it'll wait for 1 second before it runs that restart
     env: {
-      'PORT': 5000 // connection strings and all would also go here
+      'PORT': 3000 // connection strings and all would also go here
     },
     watch: jsFiles // files to watch for changes
   };
