@@ -24,3 +24,19 @@ gulp.task('style', function() {
       }))
       .pipe(jscs()); // Doesn't seem to be anything for me??? Should have flagged JS style issues like funciton(){}
 });
+
+// Using wiredep to make Gulp inject our CSS and JS files into html, so we don't have to add a new script tag
+// every time we add a new file.
+gulp.task('inject', function() {
+  var wiredep = require('wiredep').stream;
+
+  // wiredep firstly looks at the bower.json file to check the dependencies so we tell it where the bower.json is.
+  var options = {
+    bowerJson: require('./bower.json'),
+    directory: './public/lib', // directory where wiredep will be looking for stuff. E.g., when it sees bootstrap in bower.json, it needs to know where to find it.
+  };
+
+  return gulp.src('./src/views/*.html')
+      .pipe(wiredep(options))
+      .pipe(gulp.dest('./src/views')); // pipe them back into the views directory, every single html file found by gulp.src gets put back with wiredep changes
+});
