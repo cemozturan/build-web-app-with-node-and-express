@@ -4,11 +4,11 @@ var express = require('express');
 // We create an instance of Express we can do something with.
 var app = express();
 
+// Get the routes
+var bookRouter = require('./src/routes/bookRoutes');
+
 // The port that Express listens on our machine. let's just pick 5000.
 var port = process.env.PORT || 5000;
-
-// Create a book router
-var bookRouter = express.Router();
 
 // app.use() sets up some middleware. Whatever we do is app.use() is executed by Express first before it does anything else.
 // The reason we are doing is to be able to serve public files from a static directory.
@@ -25,58 +25,6 @@ app.use(express.static('public'));
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
-// Create the list of books
-var books = [
-  {
-    title: 'War and Peace',
-    genre: 'Historical Fiction',
-    author: 'Lev Tolstoy',
-    read: false
-  },
-  {
-    title: 'C# in Depth',
-    genre: 'Software',
-    author: 'Jon Skeet',
-    read: false
-  },
-  {
-    title: 'Madonna in Fur Coat',
-    genre: 'Romance',
-    author: 'Sabahattin Ali',
-    read: true
-  },
-  {
-    title: 'Master and Margarita',
-    genre: 'Fiction',
-    author: 'N. Bulgakov',
-    read: false
-  },
-  {
-    title: 'Shredded Wheat',
-    genre: 'Food',
-    author: 'Ms. Nestle',
-    read: true
-  },
-];
-
-// Set the book router up. In addition to .get(), you can setup all other HTTP verbs at once like .get().post().put().etc...
-bookRouter.route('/') // /books/
-  .get(function(req, res) {
-    res.render('books', {
-      title: 'Hello from BOOKS',
-      nav: [
-        {Link: '/books', Text: 'Books'},
-        {Link: '/authors', Text: 'Authors'}
-      ],
-      books: books
-      });
-  });
-
-bookRouter.route('/single') // /books/single
-  .get(function(req, res) {
-    res.send('We are at a single book');
-  });
-
 // Tell the app that we are gonna use the book router
 app.use('/books', bookRouter);
 
@@ -92,10 +40,6 @@ app.get('/', function(req, res) {
     nav: [
       {Link: '/books', Text: 'Books'},
       {Link: '/authors', Text: 'Authors'}]});
-});
-
-app.get('/books', function(req, res) {
-  res.send('Hello books');
 });
 
 // We fire the Express instance off.
