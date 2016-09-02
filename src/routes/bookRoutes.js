@@ -48,9 +48,19 @@ bookRouter.route('/') // /books/
       });
   });
 
-bookRouter.route('/single') // /books/single
+// Whatever is beyond the slash, Express is going to give us as a property within the request parameters.
+// So, in this case, we can do req.params.id to get the id from the URL.
+bookRouter.route('/:id') // /books/1
   .get(function(req, res) {
-    res.send('We are at a single book');
+    var id = req.params.id;
+    res.render('book', {
+      title: 'Hello from BOOKS',
+      nav: [
+        {Link: '/books', Text: 'Books'},
+        {Link: '/authors', Text: 'Authors'}
+      ],
+      book: books[id]
+      });
   });
 
 module.exports = bookRouter;
