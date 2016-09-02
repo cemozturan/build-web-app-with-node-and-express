@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/cemozturan/build-web-app-with-node-and-express#readme",
   "dependencies": {
+    "ejs": "^2.5.1",
     "express": "^4.14.0"
   },
   "devDependencies": {

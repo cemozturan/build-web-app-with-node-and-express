@@ -18,7 +18,10 @@ app.use(express.static('public'));
 
 // Setting up a second static directory to serve the views. Express will first check the public folder, and then src/views,
 // and if it still cannot find what it wants, then it'll check our app.get in our routes.
-app.use(express.static('src/views'));
+// app.use(express.static('src/views')); // Removing this as part of using a templating engine:
+
+app.set('views', './src/views');
+app.set('view engine', 'ejs');
 
 // '/' is the home route, so in this case localhost:5000
 // Also, we pass Express a function that tells it what to do when this route is hit.
@@ -26,7 +29,8 @@ app.use(express.static('src/views'));
 // and response (this is what we are going to be dealing with).
 // So, this is Express taking a request from the browser, and sending it something back.
 app.get('/', function(req, res) {
-  res.send('Hello world');
+  //res.send('Hello world'); // removing this as part of using a templating engine
+  res.render('index', {title: 'Hello from EJS', list:['a', 'b']});
 });
 
 app.get('/books', function(req, res) {
