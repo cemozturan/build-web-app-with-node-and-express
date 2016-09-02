@@ -30,7 +30,11 @@ app.set('view engine', 'ejs');
 // So, this is Express taking a request from the browser, and sending it something back.
 app.get('/', function(req, res) {
   //res.send('Hello world'); // removing this as part of using a templating engine
-  res.render('index', {title: 'Hello from EJS', list:['a', 'b']});
+  res.render('index', {
+    title: 'Hello from EJS',
+    nav: [
+      {Link: '/books', Text: 'Books'},
+      {Link: '/authors', Text: 'Authors'}]});
 });
 
 app.get('/books', function(req, res) {
