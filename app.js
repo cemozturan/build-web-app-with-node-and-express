@@ -4,8 +4,15 @@ var express = require('express');
 // We create an instance of Express we can do something with.
 var app = express();
 
+// Ideally, this would come from a database or a configuration file,
+// but we'll hard-code it for now so that we don't repeat it for every single route we set up.
+var nav = [
+  {Link: '/books', Text: 'Books'},
+  {Link: '/authors', Text: 'Authors'}
+];
+
 // Get the routes
-var bookRouter = require('./src/routes/bookRoutes');
+var bookRouter = require('./src/routes/bookRoutes')(nav);
 
 // The port that Express listens on our machine. let's just pick 5000.
 var port = process.env.PORT || 5000;
@@ -37,9 +44,8 @@ app.get('/', function(req, res) {
   //res.send('Hello world'); // removing this as part of using a templating engine
   res.render('index', {
     title: 'Hello from EJS',
-    nav: [
-      {Link: '/books', Text: 'Books'},
-      {Link: '/authors', Text: 'Authors'}]});
+    nav: nav
+  });
 });
 
 // We fire the Express instance off.
