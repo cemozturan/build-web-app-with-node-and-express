@@ -53,7 +53,10 @@ var router = function(nav) {
         var collection = db.collection('books');
 
         // results are the same array we passed in but with some mongoDB properties
+        // To insert a single book, pass in a json object instead of an array ("results" in our case) and call insertOne
         collection.insertMany(books, function(err, results) {
+          // To see the collections in cmnd, run "mongo node-express-course",
+          // then "show collections", and then "db.books.find()"
           res.send(results);
           db.close();
         });
