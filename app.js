@@ -4,6 +4,18 @@ var express = require('express');
 // Used to automatically parse the body of a request into JSON
 var bodyParser = require('body-parser');
 
+/* Passport requirements start */
+
+// Passport needs this to parse the cookie of the session
+var cookieParser = require('cookie-parser');
+
+var passport = require('passport');
+
+// Express session Passport is going to use to store our user information
+var session = require('express-session');
+
+/* Passport requirements end */
+
 // We create an instance of Express we can do something with.
 var app = express();
 
@@ -34,6 +46,14 @@ app.use(express.static('public'));
 // Similar to the usage express.static above, we are setting more middleware
 app.use(bodyParser.json()); // gives us a JSON in req.body
 app.use(bodyParser.urlencoded()); // does the same for urlencoded bodies
+
+// Pull in the pieces of Express we need in order to make Passport work
+app.use(cookieParser);
+// session takes in a secret, which can be anything really
+app.use(session({secret: 'node-express-course-secret'}));
+// now get the two Passport things that are needed
+app.use(passport.initialize()); // sets itself up and gets everything going
+app.use(passport.session()); // passport session sits on top on express session, this is where passport keeps and handles user stuff
 
 // Setting up a second static directory to serve the views. Express will first check the public folder, and then src/views,
 // and if it still cannot find what it wants, then it'll check our app.get in our routes.
