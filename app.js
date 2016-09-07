@@ -51,9 +51,8 @@ app.use(bodyParser.urlencoded()); // does the same for urlencoded bodies
 app.use(cookieParser);
 // session takes in a secret, which can be anything really
 app.use(session({secret: 'node-express-course-secret'}));
-// now get the two Passport things that are needed
-app.use(passport.initialize()); // sets itself up and gets everything going
-app.use(passport.session()); // passport session sits on top on express session, this is where passport keeps and handles user stuff
+
+require('./src/config/passport')(app);
 
 // Setting up a second static directory to serve the views. Express will first check the public folder, and then src/views,
 // and if it still cannot find what it wants, then it'll check our app.get in our routes.
