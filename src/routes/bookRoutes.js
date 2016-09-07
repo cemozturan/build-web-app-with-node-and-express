@@ -1,6 +1,7 @@
 var express = require('express');
 var bookRouter = express.Router();
 var mongodb = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
 
 var router = function(nav) {
 
@@ -28,12 +29,22 @@ var router = function(nav) {
   // So, in this case, we can do req.params.id to get the id from the URL.
   bookRouter.route('/:id') // /books/1
     .get(function(req, res) {
-      var id = req.params.id;
-      res.render('book', {
-        title: 'Hello from BOOKS',
-        nav: nav,
-        book: books[id]
+      var id = new ObjectId(req.params.id);
+      var url = 'mongodb://localhost:27017/node-express-course';
+
+      mongodb.connect(url, function(err, db) {
+        var collection = db.collection('books');
+
+        collection.findOne({_id: id}, function(err, results) {
+          // The first argument of render is the view under /src/views,
+          // which gets set in app.js by app.set('views', './src/views');
+          res.render('book', {
+            title: 'Hello from BOOKS',
+            nav: nav,
+            book: results
+          });
         });
+      });
     });
 
   return bookRouter;

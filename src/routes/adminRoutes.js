@@ -57,7 +57,7 @@ var router = function(nav) {
         // To remove the entities in the "books" collection, run "db.books.remove({})"
         collection.insertMany(books, function(err, results) {
           // To see the collections in cmnd, run "mongo node-express-course",
-          // then "show collections", and then "db.books.find()"
+          // then "show collections", and then "db.books.find()" or even "db.books.find().pretty()"
           res.send(results);
           db.close();
         });
