@@ -1,15 +1,26 @@
 var express = require('express');
 var bookRouter = express.Router();
+var mongodb = require('mongodb').MongoClient;
 
 var router = function(nav) {
 
   // Set the book router up. In addition to .get(), you can setup all other HTTP verbs at once like .get().post().put().etc...
   bookRouter.route('/') // /books/
     .get(function(req, res) {
-      res.render('books', {
-        title: 'Hello from BOOKS',
-        nav: nav,
-        books: books
+      var url = 'mongodb://localhost:27017/node-express-course';
+
+      mongodb.connect(url, function(err, db) {
+        var collection = db.collection('books');
+        // "find" would take in an object that represents a query, but since we want everything in this case, we pass in {}
+        // we'll use a query when we select a single item in /book/:id
+        collection.find({}).toArray(
+          function(err, results) {
+            res.render('books', {
+              title: 'Hello from BOOKS',
+              nav: nav,
+              books: results
+            });
+          });
         });
     });
 

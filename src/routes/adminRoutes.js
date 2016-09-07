@@ -54,6 +54,7 @@ var router = function(nav) {
 
         // results are the same array we passed in but with some mongoDB properties
         // To insert a single book, pass in a json object instead of an array ("results" in our case) and call insertOne
+        // To remove the entities in the "books" collection, run "db.books.remove({})"
         collection.insertMany(books, function(err, results) {
           // To see the collections in cmnd, run "mongo node-express-course",
           // then "show collections", and then "db.books.find()"
