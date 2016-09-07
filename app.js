@@ -1,6 +1,9 @@
 // This gives us a reference to Express, but doesn't give us the ability to really do anything with it.
 var express = require('express');
 
+// Used to automatically parse the body of a request into JSON
+var bodyParser = require('body-parser');
+
 // We create an instance of Express we can do something with.
 var app = express();
 
@@ -14,6 +17,7 @@ var nav = [
 // Get the routes
 var bookRouter = require('./src/routes/bookRoutes')(nav);
 var adminRouter = require('./src/routes/adminRoutes')(nav);
+var authRouter = require('./src/routes/authRoutes')(nav);
 
 // The port that Express listens on our machine. let's just pick 5000.
 var port = process.env.PORT || 5000;
@@ -27,6 +31,10 @@ var port = process.env.PORT || 5000;
 // Now, we can go to http://localhost:5000/css/styles.css and get a successful response.
 app.use(express.static('public'));
 
+// Similar to the usage express.static above, we are setting more middleware
+app.use(bodyParser.json()); // gives us a JSON in req.body
+app.use(bodyParser.urlencoded()); // does the same for urlencoded bodies
+
 // Setting up a second static directory to serve the views. Express will first check the public folder, and then src/views,
 // and if it still cannot find what it wants, then it'll check our app.get in our routes.
 // app.use(express.static('src/views')); // Removing this as part of using a templating engine:
@@ -36,6 +44,7 @@ app.set('view engine', 'ejs');
 // Tell the app that we are gonna use the book router and the admin router
 app.use('/books', bookRouter);
 app.use('/Admin', adminRouter);
+app.use('/Auth', authRouter);
 
 // '/' is the home route, so in this case localhost:5000
 // Also, we pass Express a function that tells it what to do when this route is hit.
