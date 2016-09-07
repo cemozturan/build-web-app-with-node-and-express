@@ -13,6 +13,7 @@ var nav = [
 
 // Get the routes
 var bookRouter = require('./src/routes/bookRoutes')(nav);
+var adminRouter = require('./src/routes/adminRoutes')(nav);
 
 // The port that Express listens on our machine. let's just pick 5000.
 var port = process.env.PORT || 5000;
@@ -32,8 +33,9 @@ app.use(express.static('public'));
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
-// Tell the app that we are gonna use the book router
+// Tell the app that we are gonna use the book router and the admin router
 app.use('/books', bookRouter);
+app.use('/Admin', adminRouter);
 
 // '/' is the home route, so in this case localhost:5000
 // Also, we pass Express a function that tells it what to do when this route is hit.
