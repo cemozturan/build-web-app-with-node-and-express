@@ -58,6 +58,7 @@ var router = function(nav) {
         collection.insertMany(books, function(err, results) {
           // To see the collections in cmd, run "mongo node-express-course" (mongo db_name),
           // then "show collections", and then "db.books.find()" or even "db.books.find().pretty()"
+          // To delete the "node-express-course" database, run "mongo node-express-course" and then "db.dropDatabase()"
           res.send(results);
           db.close();
         });

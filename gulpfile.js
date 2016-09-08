@@ -25,7 +25,8 @@ gulp.task('style', function() {
       .pipe(jshint.reporter('jshint-stylish', { // and pass the results to reporter
         verbose: true
       }))
-      .pipe(jscs()); // Doesn't seem to be anything for me??? Should have flagged JS style issues like funciton(){}
+      .pipe(jscs()); // JSCS doesn't seem to be doing anything for me??? Should have flagged JS style issues like function(){}
+      // JSHint works, though. Flagging missing semicolons, etc.
 });
 
 // Using wiredep to make Gulp inject our CSS and JS files into html, so we don't have to add a new script tag
