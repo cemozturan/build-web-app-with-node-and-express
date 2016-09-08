@@ -10,6 +10,7 @@ module.exports = function (app) {
     // This is where we get ready to package the user object into whatever we want.
     // callback takes in error and result as usual in node, we pass in null instead of error here
     // as we are not doing anything that would cause an error
+    console.log('called serializeUser');
     done(null, user);
     // If we want to store only the id, or email we would have "done(null, user.id)" or "done(null, user.email)"
   });
@@ -20,8 +21,12 @@ module.exports = function (app) {
     // Also, if we stored only the id in serializeUser method, we would call our parameter "userId" instead of "user"
     // because that's what we'd be looking for in the DB. We can choose any name we want, but the deserializeUser method
     // looks for whatever format the user object was stored inside the serializeUser method.
+    console.log('called deserializeUser');
     done(null, user);
   });
+
+  // Execute the local strategy
+  require('./strategies/local.strategy')();
 };
 
 /*

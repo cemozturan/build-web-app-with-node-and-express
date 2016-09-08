@@ -48,7 +48,7 @@ app.use(bodyParser.json()); // gives us a JSON in req.body
 app.use(bodyParser.urlencoded()); // does the same for urlencoded bodies
 
 // Pull in the pieces of Express we need in order to make Passport work
-app.use(cookieParser);
+app.use(cookieParser());
 // session takes in a secret, which can be anything really
 app.use(session({secret: 'node-express-course-secret'}));
 
