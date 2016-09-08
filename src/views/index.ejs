@@ -103,14 +103,19 @@
           <!--/stories-->
           <div class="row">
             <br>
-            <div class="col-md-2 col-sm-3 text-center">
+            <div class="col-md-10 col-sm-9">
               Sign In
+              <form name="signInForm" action="/auth/signIn" method="post">
+                Username: <input name="userName" id="userNameId"> <br/>
+                Password: <input name="password" id="passwordId" type="password"> <br/>
+                <input type="submit" value="Sign in">
+              </form>
             </div>
             <div class="col-md-10 col-sm-9">
               Sign Up
               <form name="signUpForm" action="/auth/signUp" method="post">
-                <input name="userName" id="userNameId">
-                <input name="password" id="passwordId" type="password">
+                Username: <input name="userName" id="userNameId"> <br/>
+                Password: <input name="password" id="passwordId" type="password"> <br/>
                 <input type="submit" value="Sign up">
               </form>
             </div>

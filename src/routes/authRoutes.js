@@ -1,6 +1,7 @@
 var express = require('express');
 var authRouter = express.Router();
 var mongodb = require('mongodb').MongoClient;
+var passport = require('passport');
 
 var router = function() {
   authRouter.route('/signUp')
@@ -26,7 +27,7 @@ var router = function() {
             When passport does its initialisation phase (passport.initialize and passport.session), it
             adds some things to request messages, and one of them is the "login" function. What it does is to tell passport
             that this user is ready to sign in. During a regular sign in, where an existing user signs in with their username/password
-            we wouldn't call this as the authentication would deal with it. But here, we are signing up a new user, and we
+            we wouldn't call this as the passport.authentice() method would deal with it. But here, we are signing up a new user, and we
             wouldn't want them to go and login again just after signing up, so we call login explicitly.
           */
           /*
@@ -59,6 +60,16 @@ var router = function() {
           });
         });
       });
+    });
+
+  authRouter.route('/signIn')
+    .post(passport.authenticate('local', {
+      // Tell passport that we are using 'local' strategy. We could also have 'google' etc.
+      // This calls the function that we pass in as the second parameter to passport.use inside local.strategy.js
+      // And give it an option to redirect failures to home page
+      failureRedirect: '/'
+    }), function(req, res) { // This is the success callback that gets run if authentication is successful
+        res.redirect('/auth/profile');
     });
 
   authRouter.route('/profile')
