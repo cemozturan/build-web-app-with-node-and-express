@@ -30,8 +30,18 @@ module.exports = function () {
         {username: username},
         function(err, results) {
           // Ideally, we'd check for errors here
-          var user = results;
-          done(null, user); // no error, and the user
+          if (results.password === password){
+            var user = results;
+            done(null, user); // no error, and the user
+          } else {
+            // The following takes us to a page that says "Bad password" when the password is not correct.
+            // But, this is not what we want. What we want is a redirection to the main page as we
+            // described in the authRoutes.js
+            //  done('Bad password', null);
+            // instead, we pass in null for errors, because there isn't really any error,
+            // false for "user", because it'll cehck for truthiness of the user, and a message
+            done(null, false, {message: 'Bad password'});
+          }
       });
     });
   }));
