@@ -38,16 +38,24 @@ var bookController = function(bookService, nav) {
       collection.findOne({_id: id}, function(err, results) {
         // _id is the mongoDB value, what the DB assigned to the book record
         // results.bookId is the id of the book in Goodreads.
-        bookService.getBookById(results.bookId, function(err, book) {
-          results.book = book;
-          // The first argument of render is the view under /src/views,
-          // which gets set in app.js by app.set('views', './src/views');
+        if(results.bookId) {
+          bookService.getBookById(results.bookId, function(err, book) {
+            results.book = book;
+            // The first argument of render is the view under /src/views,
+            // which gets set in app.js by app.set('views', './src/views');
+            res.render('book', {
+              title: 'Hello from BOOKS',
+              nav: nav,
+              book: results
+            });
+          });
+        } else {
           res.render('book', {
             title: 'Hello from BOOKS',
             nav: nav,
             book: results
           });
-        });
+        }
       });
     });
   };

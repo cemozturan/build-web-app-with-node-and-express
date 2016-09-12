@@ -8,32 +8,30 @@ var books = [
     title: 'War and Peace',
     genre: 'Historical Fiction',
     author: 'Lev Tolstoy',
+    bookId: 656,
+    read: false
+  },
+  {
+    title: 'Master and Margarita',
+    genre: 'Fiction',
+    author: 'M. Bulgakov',
+    bookId: 117833,
     read: false
   },
   {
     title: 'C# in Depth',
     genre: 'Software',
     author: 'Jon Skeet',
+    bookId: 7789280,
     read: false
   },
   {
     title: 'Madonna in Fur Coat',
     genre: 'Romance',
     author: 'Sabahattin Ali',
+    bookId: 220826,
     read: true
-  },
-  {
-    title: 'Master and Margarita',
-    genre: 'Fiction',
-    author: 'N. Bulgakov',
-    read: false
-  },
-  {
-    title: 'Shredded Wheat',
-    genre: 'Food',
-    author: 'Ms. Nestle',
-    read: true
-  },
+  }
 ];
 
 var router = function(nav) {
