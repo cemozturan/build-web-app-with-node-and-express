@@ -5,6 +5,14 @@ var ObjectId = require('mongodb').ObjectID;
 
 var router = function(nav) {
 
+  // Authorize all the book routes, so if there is no user in session we get redirected to the login page
+  bookRouter.use(function(req, res, next) {
+    if (!req.user) {
+      res.redirect('/');
+    }
+    next();
+  });
+
   // Set the book router up. In addition to .get(), you can setup all other HTTP verbs at once like .get().post().put().etc...
   bookRouter.route('/') // /books/
     .get(function(req, res) {
