@@ -26,6 +26,7 @@ module.exports = function () {
     mongodb.connect(url, function(err, db) {
       var collection = db.collection('users');
       // if there is more than one entities, findOne() returns the first entity.
+      // If it cannot find any entities, it returns null.
       collection.findOne(
         {username: username},
         function(err, results) {

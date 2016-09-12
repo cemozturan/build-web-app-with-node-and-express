@@ -73,6 +73,14 @@ var router = function() {
     });
 
   authRouter.route('/profile')
+    .all(function(req, res, next) { // .all is for all http actions, not just get.
+      if(!req.user) {
+        res.redirect('/');
+      }
+      // If there is a user in session, go on about your business, go and do the next thing.
+      // So the only way to execute the following "get" is if there is a user.
+      next();
+    })
     .get(function(req, res) {
       // req.user is what passport uses to say this user is signed in and here is his information.
       // Passport appends this "user" property to request messages
