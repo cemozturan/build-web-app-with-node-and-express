@@ -6,6 +6,7 @@
 */
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var mongodb = require('mongodb').MongoClient;
 
 module.exports = function () {
   /*
@@ -20,12 +21,18 @@ module.exports = function () {
     passwordField: 'password'
   },
   function(username, password, done) {
-    // For now, create a user, and pass it to the callback.
-    // We'll do db integration later.
-    var user = {
-      username: username,
-      password: password
-    };
-    done(null, user); // no error, and the user
+    var url = 'mongodb://localhost:27017/node-express-course';
+
+    mongodb.connect(url, function(err, db) {
+      var collection = db.collection('users');
+      // if there is more than one entities, findOne() returns the first entity.
+      collection.findOne(
+        {username: username},
+        function(err, results) {
+          // Ideally, we'd check for errors here
+          var user = results;
+          done(null, user); // no error, and the user
+      });
+    });
   }));
 };
