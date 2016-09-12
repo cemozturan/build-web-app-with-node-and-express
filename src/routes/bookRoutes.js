@@ -3,8 +3,9 @@ var bookRouter = express.Router();
 
 var router = function(nav) {
 
-  // Get the book controller
-  var bookController = require('../controllers/bookController.js')(null, nav);
+  // Get the book controller and service
+  var bookService = require('../services/goodreadsService.js')();
+  var bookController = require('../controllers/bookController.js')(bookService, nav);
 
   // Authorize all the book routes, so if there is no user in session we get redirected to the login page
   bookRouter.use(bookController.authoriseCheck);
